@@ -11,8 +11,6 @@ class TimeStampedModel(models.Model):
         abstract = True
 
 
-
-
 class UUIDModel(models.Model):
     """An entire abstract model is almost overkill for this, but it's also
     very easy to forget to use unique=True, or to set the default incorrectly."""
