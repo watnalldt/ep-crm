@@ -36,13 +36,17 @@ def test_create_superuser():
 def test_create_superuser_invalid():
     # Test creating a superuser with invalid fields
     with pytest.raises(ValueError):
-        User.objects.create_superuser(email="admin@example.com", password="adminpassword123", is_staff=False)
+        User.objects.create_superuser(
+            email="admin@example.com", password="adminpassword123", is_staff=False
+        )
 
 
 @pytest.mark.django_db
 def test_user_roles():
     # Test setting user roles
-    user = User.objects.create_user(email="test@example.com", password="password123", role=User.Roles.ACCOUNT_MANAGER)
+    user = User.objects.create_user(
+        email="test@example.com", password="password123", role=User.Roles.ACCOUNT_MANAGER
+    )
 
     assert user.role == User.Roles.ACCOUNT_MANAGER
 
