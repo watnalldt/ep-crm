@@ -1,6 +1,7 @@
 Django<5.0
 django-environ
 django-extensions
+django-debug-toolbar
 # Database
 psycopg[binary]
 # Testing
