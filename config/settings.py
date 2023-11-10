@@ -48,12 +48,15 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "django_extensions",
+    "reversion",
+    "simple_history",
 ]
 
 
 PROJECT_APPS = [
     "core.apps.CoreConfig",
     "users.apps.UsersConfig",
+    "utilities.apps.UtilitiesConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS

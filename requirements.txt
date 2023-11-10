@@ -13,11 +13,16 @@ django==4.2.7
     #   -r requirements.in
     #   django-debug-toolbar
     #   django-extensions
+    #   django-reversion
 django-debug-toolbar==4.2.0
     # via -r requirements.in
 django-environ==0.11.2
     # via -r requirements.in
 django-extensions==3.2.3
+    # via -r requirements.in
+django-reversion==5.0.8
+    # via -r requirements.in
+django-simple-history==3.4.0
     # via -r requirements.in
 iniconfig==2.0.0
     # via pytest
