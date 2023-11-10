@@ -3,3 +3,5 @@ django-environ
 django-extensions
 # Database
 psycopg[binary]
+# Testing
+pytest-django
