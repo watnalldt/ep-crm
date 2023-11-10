@@ -6,3 +6,5 @@ django-debug-toolbar
 psycopg[binary]
 # Testing
 pytest-django
+pytest-sugar
+coverage
