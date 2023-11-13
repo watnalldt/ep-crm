@@ -1,3 +1,68 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.utils.translation import gettext_lazy as _
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
-# Register your models here.
+from .models import User
+
+
+class UserResource(resources.ModelResource):
+    class Meta:
+        model = User
+        skip_unchanged = True
+        report_skipped = True
+        import_id_fields = ["email"]
+
+
+class CustomUserAdmin(BaseUserAdmin, ImportExportModelAdmin):
+    fieldsets = (
+        (None, {"fields": ("email", "first_name", "last_name", "password", "role", "last_login")}),
+        (
+            "Permissions",
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                )
+            },
+        ),
+    )
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": ("email", "password1", "password2"),
+            },
+        ),
+    )
+
+    list_display = (
+        "email",
+        "first_name",
+        "is_staff",
+        "is_active",
+        "last_login",
+        "role",
+    )
+    list_filter = (
+        "is_staff",
+        "is_superuser",
+        "is_active",
+        "groups",
+        "role",
+    )
+    search_fields = ("email",)
+    search_help_text = "Enter user's email"
+    ordering = ("email",)
+    filter_horizontal = (
+        "groups",
+        "user_permissions",
+    )
+
+
+admin.site.register(User, CustomUserAdmin)

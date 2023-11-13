@@ -2,6 +2,7 @@ Django<5.0
 django-environ
 django-extensions
 django-debug-toolbar
+django-import-export
 django-reversion
 django-simple-history
 # Database
