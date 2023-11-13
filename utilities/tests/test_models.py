@@ -1,7 +1,7 @@
 import pytest
 from django.db import IntegrityError
 
-from .models import Supplier, Utility
+from utilities.models import Supplier, Utility
 
 
 @pytest.mark.django_db
@@ -32,7 +32,7 @@ def test_unique_constraint_supplier():
 
 @pytest.mark.django_db
 def test_utility_str_representation():
-    # Test the string representation of the User model
+    # Test the string representation of the Utility model
     utility = Utility.objects.create(utility="Test Utility")
 
     assert str(utility) == utility.utility
@@ -40,7 +40,7 @@ def test_utility_str_representation():
 
 @pytest.mark.django_db
 def test_supplier_str_representation():
-    # Test the string representation of the User model
+    # Test the string representation of the Supplier model
     supplier = Supplier.objects.create(supplier="Test Supplier")
 
     assert str(supplier) == supplier.supplier

@@ -10,3 +10,4 @@ psycopg[binary]
 pytest-django
 pytest-sugar
 coverage
+factory_boy
