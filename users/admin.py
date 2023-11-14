@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
-from .models import User
+from .models import AccountManager, User
 
 
 class UserResource(resources.ModelResource):
@@ -66,3 +66,12 @@ class CustomUserAdmin(BaseUserAdmin, ImportExportModelAdmin):
 
 
 admin.site.register(User, CustomUserAdmin)
+
+
+class AccountManagerAdmin(admin.ModelAdmin):
+    list_display = ("email",)
+    ordering = ("email",)
+    search_fields = ("email",)
+
+
+admin.site.register(AccountManager, AccountManagerAdmin)
