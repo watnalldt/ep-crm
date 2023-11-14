@@ -1,8 +1,7 @@
 import pytest
 from django.contrib.auth import get_user_model
-from django.test import TestCase
 
-from users.models import AccountManager, ACManager, CustomUserManager
+from users.models import AccountManager, CustomUserManager
 
 User = get_user_model()
 
