@@ -1,6 +1,6 @@
 [run]
 branch = True
-omit = */settings.py
+omit = */settings.py, */tests
 
 [report]
 show_missing = True
