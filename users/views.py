@@ -1,7 +1,9 @@
 from django.contrib import auth, messages
+from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control, never_cache
 from django.views.generic import ListView, TemplateView
@@ -11,6 +13,28 @@ from core.decorators import account_manager_required
 from core.views import HTMLTitleMixin
 
 from .utils import detect_user
+
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def login(request):
+    if request.user.is_authenticated:
+        messages.warning(request, "You are already logged in")
+        return redirect("users:my_account")
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate(request, email=cd["username"], password=cd["password"])
+
+            if user is not None:
+                auth.login(request, user)
+                messages.success(request, " You are logged in..")
+                return redirect("users:my_account")
+            else:
+                messages.error(request, "Invalid login credentials..")
+    else:
+        form = AuthenticationForm()
+    return render(request, "users/login.html", {"form": form})
 
 
 def logout(request):

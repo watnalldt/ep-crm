@@ -12,11 +12,12 @@ url_patterns = [
     path(
         "account_managers_dashboard/",
         views.AccountManagerView.as_view(),
-        name="account_managers_dashboard"),
+        name="account_managers_dashboard",
+    ),
     # Client List
     path(
         "account_managers_client_list/",
         views.AccountManagerClientList.as_view(),
-        name="client_list",)
+        name="client_list",
+    ),
 ]
-
