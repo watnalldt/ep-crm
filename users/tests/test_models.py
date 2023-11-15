@@ -1,9 +1,6 @@
 import pytest
-from django.contrib.auth import get_user_model
 
-from users.models import AccountManager, CustomUserManager
-
-User = get_user_model()
+from users.models import AccountManager, CustomUserManager, User
 
 
 @pytest.mark.django_db

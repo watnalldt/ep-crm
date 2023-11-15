@@ -1,8 +1,7 @@
 import pytest
 
+from clients.models import Client
 from users.models import AccountManager
-
-from .models import Client
 
 
 @pytest.mark.django_db
