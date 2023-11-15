@@ -1,5 +1,7 @@
+from django.contrib import auth, messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control, never_cache
 from django.views.generic import ListView, TemplateView
@@ -7,6 +9,22 @@ from django.views.generic import ListView, TemplateView
 from clients.models import Client
 from core.decorators import account_manager_required
 from core.views import HTMLTitleMixin
+
+from .utils import detect_user
+
+
+def logout(request):
+    auth.logout(request)
+    messages.add_message(request, messages.INFO, "You have successfully logged out.")
+    return redirect("users:login")
+
+
+@login_required(login_url="users:login")  # login required decorators
+#  Function For MyAccount.
+def my_account(request):
+    user = request.user
+    redirect_url = detect_user(user)
+    return redirect(redirect_url)
 
 
 @method_decorator([never_cache, account_manager_required], name="dispatch")
