@@ -5,7 +5,6 @@ from import_export.admin import ImportExportModelAdmin
 from import_export.widgets import ForeignKeyWidget
 from reversion.admin import VersionAdmin
 
-
 from .models import Client
 
 User = get_user_model()

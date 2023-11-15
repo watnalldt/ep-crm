@@ -1,10 +1,10 @@
 import reversion
 from django.db import models
+from django.urls import reverse
 from simple_history.models import HistoricalRecords
 
 from core.models import TimeStampedModel
 from users.models import AccountManager
-from django.urls import reverse
 
 
 class ClientsManager(models.Manager):
