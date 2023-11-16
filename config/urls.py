@@ -20,5 +20,6 @@ from django.urls import include, path
 urlpatterns = [
     path("ep_crm_portal/", admin.site.urls),
     path("users/", include("users.urls")),
+    path("", include("pages.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
 ]

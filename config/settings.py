@@ -60,6 +60,7 @@ PROJECT_APPS = [
     "core.apps.CoreConfig",
     "users.apps.UsersConfig",
     "clients.apps.ClientsConfig",
+    "pages.apps.PagesConfig",
     "utilities.apps.UtilitiesConfig",
 ]
 
