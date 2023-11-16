@@ -5,8 +5,19 @@ django-debug-toolbar
 django-import-export
 django-reversion
 django-simple-history
+
 # Database
 psycopg[binary]
+
+# forms
+django-crispy-forms
+crispy-bootstrap5
+django-widget-tweaks
+django-recaptcha
+
+# static file management
+whitenoise
+
 # Testing
 pytest-django
 pytest-sugar
