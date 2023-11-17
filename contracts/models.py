@@ -1,5 +1,6 @@
 from datetime import date
 
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -11,11 +12,7 @@ from utilities.models import Supplier, Utility
 
 class ContractsManager(models.Manager):
     def get_queryset(self):
-        return (
-            super()
-            .get_queryset()
-            .prefetch_related("client", "client_manager", "supplier", "utility")
-        )
+        return super().get_queryset().prefetch_related("client", "supplier", "utility")
 
 
 class UtilityQuerySet(models.QuerySet):
@@ -71,6 +68,12 @@ class Contract(models.Model):
         NO = "NO", _("No")
 
     class DirectorsApproval(models.TextChoices):
+        """The default is set to No"""
+
+        YES = "YES", _("Yes")
+        NO = "NO", _("No")
+
+    class VatDeclaration(models.TextChoices):
         """The default is set to No"""
 
         YES = "YES", _("Yes")
@@ -257,7 +260,13 @@ class Contract(models.Model):
         blank=True,
     )
     smart_meter = models.CharField(verbose_name="Smart Meter", max_length=50, null=True, blank=True)
-    vat_declaration_sent = models.DateField(null=True, blank=True)
+    vat_declaration_sent = models.CharField(
+        verbose_name="Vat Declaration Sent",
+        choices=VatDeclaration.choices,
+        default=VatDeclaration.NO,
+    )
+    vat_declaration_date = models.DateField(verbose_name="Date Sent", blank=True, null=True)
+
     vat_declaration_expires = models.DateField(null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
     future_contract_start_date = models.DateField(
@@ -333,11 +342,16 @@ class Contract(models.Model):
         return f"{self.business_name} with mpan {self.mpan_mpr}"
 
     def save(self, *args, **kwargs):
-        # Make sure date_field2 is always the same as date_field1
-        self.vat_declaration_expires = self.contract_end_date
+        if self.vat_declaration_sent == self.VatDeclaration.YES:
+            # Set vat_declaration_expires to contract_end_date
+            self.vat_declaration_expires = self.contract_end_date
+        else:
+            # If vat_declaration_sent is not YES, set vat_declaration_expires to None
+            self.vat_declaration_expires = None
+
         super().save(*args, **kwargs)
 
-    # Returns the number of days left on the contract
+    # Returns the number of days left on the contrac
     @property
     def days_till(self):
         today = date.today()

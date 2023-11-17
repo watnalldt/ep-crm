@@ -2,9 +2,14 @@ Django<5.0
 django-environ
 django-extensions
 django-debug-toolbar
+
+# Management
+django-grappelli
 django-import-export
 django-reversion
 django-simple-history
+django-admin-rangefilter
+django-admin-autocomplete-filter
 
 # Database
 psycopg[binary]

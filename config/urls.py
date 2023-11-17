@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
+    path("grappelli/", include("grappelli.urls")),  # grappelli URLS
     path("ep_crm_portal/", admin.site.urls),
     path("users/", include("users.urls")),
     path("", include("pages.urls")),

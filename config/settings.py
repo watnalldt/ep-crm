@@ -38,6 +38,7 @@ DEBUG_TOOLBAR = env("DEBUG_TOOLBAR")
 # Application definition
 
 DJANGO_APPS = [
+    "grappelli",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -47,10 +48,12 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    "admin_auto_filters",
     "crispy_forms",
     "crispy_bootstrap5",
     "django_extensions",
     "import_export",
+    "rangefilter",
     "reversion",
     "simple_history",
 ]
