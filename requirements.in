@@ -23,3 +23,5 @@ pytest-django
 pytest-sugar
 coverage
 factory_boy
+model-bakery
+mixer

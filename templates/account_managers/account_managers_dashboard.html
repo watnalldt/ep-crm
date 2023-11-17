@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block html_title %}
+    {{ html_title }}
+{% endblock html_title %}
+{% block content %}
+    <div class="container">
+        <h5 class="text-center fw-bold mt-4 mb-4 text-success">Your Dashboard</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <p>You are logged in as {{ user.email }}</p>
+                <p>Your last login was {{ user.last_login }}</p>
+                <a href="{% url 'users:client_list' %}">Client List</a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,18 +1,30 @@
 import pytest
+from django.urls import reverse
+from model_bakery import baker
 
-from clients.models import Client
-from users.models import AccountManager
+from clients.models import Client  # Adjust the import path accordingly
+
+
+@pytest.fixture
+def account_manager():
+    return baker.make("AccountManager")
+
+
+@pytest.fixture
+def client(account_manager):
+    return baker.make("Client", account_manager=account_manager)
 
 
 @pytest.mark.django_db
-def test_create_new_client_with_valid_data():
-    account_manager = AccountManager.objects.create(
-        email="testuser@example.com", password="1245679", role="ACCOUNT_MANAGER"
-    )
-    client_data = {
-        "client": "TestClient",
-        "account_manager": account_manager,
-    }
-    client = Client.objects.create(**client_data)
-    assert isinstance(client, Client)
-    assert str(client) == "TestClient"
+def test_client_model(client):
+    assert Client.objects.count() == 1
+    assert str(client) == client.client
+    assert client.get_absolute_url() == reverse("clients:client_contracts", args=[str(client.pk)])
+
+
+@pytest.mark.django_db
+def test_client_unique_constraint(account_manager):
+    # Test that the unique constraint on the client field is enforced
+    client1 = baker.make("Client", account_manager=account_manager)
+    with pytest.raises(Exception):
+        baker.make("Client", client=client1.client, account_manager=account_manager)

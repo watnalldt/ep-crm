@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block html_title %}
+    {{ html_title }}
+{% endblock html_title %}
+{% block content %}
+    {% if client_list %}
+        {% for client in client_list %}
+            <ul>
+                <li>{{ client.client }}</li>
+            </ul>
+            <a href="{{ client.get_absolute_url }}"
+               class="btn btn-success text-center">Detail</a>
+        {% endfor %}
+    {% endif %}
+{% endblock content %}
