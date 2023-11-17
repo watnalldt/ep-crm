@@ -10,4 +10,4 @@ urlpatterns = [
         views.ClientDetailView.as_view(),
         name="client_contracts",
     ),
-    ]
+]
