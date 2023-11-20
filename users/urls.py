@@ -20,4 +20,5 @@ urlpatterns = [
         views.AccountManagerClientList.as_view(),
         name="client_list",
     ),
+    path("search_results", views.ContractSearchView.as_view(), name="search_results"),
 ]

@@ -3,12 +3,14 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control, never_cache
 from django.views.generic import ListView, TemplateView
 
 from clients.models import Client
+from contracts.models import Contract
 from core.decorators import account_manager_required
 from core.views import HTMLTitleMixin
 
@@ -69,3 +71,26 @@ class AccountManagerClientList(LoginRequiredMixin, HTMLTitleMixin, ListView):
 
     def get_queryset(self):
         return Client.objects.filter(account_manager=self.request.user)
+
+
+@method_decorator([never_cache, account_manager_required], name="dispatch")
+class ContractSearchView(LoginRequiredMixin, ListView):
+    model = Contract
+    template_name = "account_managers/search_results.html"
+    context_object_name = "results"
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        if query:
+            return self.search_contracts(query)
+        else:
+            return Contract.objects.all()
+
+    def search_contracts(self, query):
+        return Contract.objects.filter(
+            Q(mpan_mpr__isnull=True)
+            | Q(mpan_mpr__icontains=query)
+            | Q(client__client__icontains=query)
+            | Q(business_name__icontains=query)
+            | Q(site_address__icontains=query)
+        )

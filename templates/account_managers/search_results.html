@@ -1,0 +1,27 @@
+{% extends "dashboards/staff_portal.html" %}
+
+{% block content %}
+  <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto centered-panel">
+                <div class="card">
+  <h5 class="card-title text-center text-success mt-4">Search Results</h5>
+  <hr>
+                    <div class="card-body">
+                     {% for contract in results %}
+                       <ul>
+
+                         <li>Client: <a href="{% url 'clients:all_clients_contract_detail' contract.id %}">{{ contract.client }}</a></li>
+                         <li>MPAN/MPR: {{ contract.mpan_mpr }}</li>
+                         <li>Business Name: {{ contract.business_name }}</li>
+                         <li> Contract End Date: {{ contract.contract_end_date }}</li>
+
+
+
+
+
+  </ul>
+
+  {% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center mt-4">
+                <h6>Account Manager {{ request.user.email }}</h6>
+                <h5 class="mt-4">Contract Details: {{ contract.site_address }}</h5>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-5 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Client: {{ contract.client }}</h5>
+                        <p class="card-text">Business Name: {{ contract.business_name }}</p>
+                        {% if contract.account_number == None %}
+                            <p class="card-text">{% trans "" %}</p>
+                        {% else %}
+                            <p class="card-text">Account Number: {{ contract.account_number }}</p>
+                        {% endif %}
+                        <p>Company Reg Number: {{ contract.company_reg_number }}</p>
+                <p>Supplier: {{ contract.supplier }}</p>
+                <p>Utility Type: {{ contract.utility }}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat the above card structure for other columns -->
+        </div>
+        <hr>
+        <h4 class="text-center mb-3">Future Contract Details</h4>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">Start Date: {{ contract.future_contract_start_date }}</p>
+                        <!-- Add other future contract details as cards as needed -->
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat the above card structure for other future contract details -->
+        </div>
+        <div class="row mt-4 text-center">
+            <a href="" target="_blank">
+                <button class="btn btn-secondary btn-sm mt-3">Download PDF</button>
+            </a>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,7 +1,7 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 
 from contracts.models import Contract
 from core.decorators import account_manager_required
@@ -45,3 +45,35 @@ class ContractDetailView(LoginRequiredMixin, HTMLTitleMixin, DetailView):
             return Contract.objects.filter(client__account_manager=self.request.user)
         else:
             return Contract.objects.none()
+
+
+# return all clients and associated contracts
+class ClientListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = Client
+    context_object_name = "all_clients"
+    template_name = "clients/contracts/all_contracts/all_clients.html"
+
+    def test_func(self):
+        return self.request.user.groups.filter(name="Account Managers").exists()
+
+
+class AllClientsView(LoginRequiredMixin, UserPassesTestMixin, HTMLTitleMixin, DetailView):
+    queryset = Client.objects.all()
+    template_name = "clients/contracts/all_contracts/all_client_contracts.html"
+
+    def get_html_title(self):
+        return self.object.client
+
+    def test_func(self):
+        return self.request.user.groups.filter(name="Account Managers").exists()
+
+
+class AllContractsDetailView(LoginRequiredMixin, UserPassesTestMixin, HTMLTitleMixin, DetailView):
+    model = Contract
+    template_name = "clients/contracts/all_contracts/all_contracts_detail.html"
+
+    def get_html_title(self):
+        return self.object.business_name
+
+    def test_func(self):
+        return self.request.user.groups.filter(name="Account Managers").exists()
