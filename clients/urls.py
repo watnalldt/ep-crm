@@ -10,4 +10,9 @@ urlpatterns = [
         views.ClientDetailView.as_view(),
         name="client_contracts",
     ),
+    path(
+        "contract_detail/<int:pk>/",
+        views.ContractDetailView.as_view(),
+        name="contract_detail",
+    ),
 ]

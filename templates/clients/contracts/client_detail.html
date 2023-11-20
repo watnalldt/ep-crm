@@ -1,0 +1,102 @@
+<!-- templates/clients/contracts/client_detail.html -->
+{% extends "dashboards/staff_portal.html" %}
+{% load i18n %}
+{% block html_title %}
+    {{ html_title }} Contracts
+{% endblock html_title %}
+{% block content %}
+    <div class="container p-3 my-5">
+        <h5 class="text-center mt-4 mb-4">{{ client }} - All Contracts</h5>
+        <hr class="text-success">
+        <!-- DataTable Code starts -->
+        <table id="cl_list" class="table" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Business Name</th>
+                    <th>Site Address</th>
+                    <th>MPAN/MPR</th>
+                    <th>Supplier</th>
+                    <th>Utility</th>
+                    <th>CED</th>
+                    <th>D/A</th>
+                    <th>Detail</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contract in client.client_contracts.all %}
+                    <tr>
+                        {% if contract.contract_type == "NON_SEAMLESS" %}
+                            <td>{% trans "NS" %}</td>
+                        {% elif contract.contract_type == "SEAMLESS" %}
+                            <td>{% trans "S" %}</td>
+                        {% endif %}
+                        <td>{{ contract.contract_status }}</td>
+                        <td>{{ contract.business_name | title }}</td>
+                        <td>{{ contract.site_address }}</td>
+                        <td>{{ contract.mpan_mpr }}</td>
+                        <td>{{ contract.supplier }}</td>
+                        <td>{{ contract.utility }}</td>
+                        {% if contract.is_ooc == "YES" %}
+                            <td>{% trans "OOC" %}</td>
+                        {% else %}
+                            <td>{{ contract.contract_end_date }}</td>
+                        {% endif %}
+                        {% if contract.is_directors_approval == "YES" %}
+                            <td>{% trans "D/A" %}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                        <td>
+                            <a href="{% url 'clients:contract_detail' contract.id %}">
+                                <i class="fa-brands fa-page4" style="font-size: 40px; color:green;"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
+{% block extra_js %}
+    <script>
+ $(document).ready(function() {
+    $('#cl_list').DataTable( {
+
+        columnDefs: [{ width: 80, targets: 7, }],
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'copyHtml5',
+                text: '<i class="fa-solid fa-copy"></i> Copy',
+                titleAttr: 'Copy to clipboard',
+                title: 'Client Contracts',
+                exportOptions: {
+                    columns: [ 0, ':visible' ]
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa-solid fa-file-excel"></i> Excel',
+                titleAttr: 'Export to Excel',
+                title: 'Client Contracts',
+                exportOptions: {
+                    columns: [ 0, ':visible' ]
+
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fa-solid fa-file-pdf"></i> PDF',
+                titleAttr: 'Export to PDF',
+                title: 'Client Contracts',
+                exportOptions: {
+                     columns: [ 0, ':visible' ]
+                }
+            },
+            'colvis'
+        ]
+    } );
+} );
+    </script>
+{% endblock extra_js %}
