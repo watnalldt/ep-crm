@@ -160,7 +160,7 @@ class ContractAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         "is_ooc",
         "is_directors_approval",
     )
-    # list_display_links = ("business_name",)
+    list_display_links = ("business_name",)
     list_select_related = ("client", "supplier", "utility")
     fieldsets = (
         (
@@ -324,6 +324,7 @@ class ContractAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         "make_contract_pricing",
         "make_contract_objection",
         "make_contract_locked",
+        "make_vat_declaration",
     ]
 
     @admin.action(description="Make Live")
@@ -361,6 +362,21 @@ class ContractAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     @admin.action(description="Make Non-Seamless")
     def change_contract_to_non_seamless(self, request, queryset):
         queryset.update(contract_type="NON_SEAMLESS")
+
+    @admin.action(description="Vat Declaration Sent")
+    def make_vat_declaration(self, request, queryset):
+        for obj in queryset:
+            # Check if the vat_declaration_date field is not filled or is None
+            if obj.vat_declaration_date is None or not obj.vat_declaration_date.strip():
+                self.message_user(
+                    request,
+                    f"Vat declaration date is not filled for {obj}. Update aborted.",
+                    level="ERROR",
+                )
+            else:
+                obj.vat_declaration_sent = "YES"
+                obj.save()
+                self.message_user(request, f"Vat declaration set to YES for {obj}.")
 
     def link_to_clients(self, obj):
         link = reverse("admin:clients_client_change", args=[obj.client.id])

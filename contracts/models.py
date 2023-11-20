@@ -1,6 +1,5 @@
 from datetime import date
 
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -31,10 +30,12 @@ class ContractTypeQuerySet(models.QuerySet):
     """Returns contracts based on either  seamless or non-seamless"""
 
     def seamless(self):
-        return self.filter(contract_type="SEAMLESS").select_related("client", "supplier", "utility")
+        return self.filter(contract_type="SEAMLESS").prefetch_related(
+            "client", "supplier", "utility"
+        )
 
     def non_seamless(self):
-        return self.filter(contract_type="NON-SEAMLESS").select_related(
+        return self.filter(contract_type="NON-SEAMLESS").prefetch_related(
             "client", "supplier", "utility"
         )
 
@@ -343,6 +344,10 @@ class Contract(models.Model):
 
     def save(self, *args, **kwargs):
         if self.vat_declaration_sent == self.VatDeclaration.YES:
+            if self.vat_declaration_date is None:
+                raise ValueError(
+                    "Error: vat_declaration_date cannot be null when vat_declaration_sent is YES."
+                )
             # Set vat_declaration_expires to contract_end_date
             self.vat_declaration_expires = self.contract_end_date
         else:
