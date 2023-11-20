@@ -1,0 +1,42 @@
+/* WHOLE PAGE */
+ * { box-sizing: border-box; }
+
+ /* FULL HEIGHT FLEX BODY */
+ body {
+      padding: 0; margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font:Normal  16px/24px "Open Sans", sans-serif;
+      letter-spacing: 0;
+      text-transform: none;
+      color: #515151 !important;
+		}
+
+
+/* ALLOW MAIN TO FILL HEIGHT */
+ #pageMain { flex-grow: 1; }
+
+.masthead {
+  background-image: url(../img/energy-portfolio-cover.jpg);
+    background-size: cover;
+    height: 80vh;
+    color: #fff;
+    position: relative;
+}
+
+
+/* FOOTER */
+ footer {
+    background-color: #000000;
+    padding:15px 22px;
+    font-size: 14px;
+    color: white;
+    }
+
+footer a {
+        color: white;
+        }
+
+footer a.hover { color: #8ebf42;}
+

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -24,10 +25,22 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
               rel="stylesheet">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
     </head>
     <body>
-        {% block content %}
-        {% endblock content %}
+        {% block navbar %}
+            {% include "partials/main_navbar.html" %}
+        {% endblock navbar %}
+        <main id="pageMain">
+            {% block content %}
+                <!-- Content used in other pages -->
+            {% endblock content %}
+        </main>
+        <!-- Footer -->
+        {% include "partials/main_footer.html" %}
+        <!-- Modal -->
+        {% include "partials/logout.html" %}
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
                 integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
                 crossorigin="anonymous"></script>
