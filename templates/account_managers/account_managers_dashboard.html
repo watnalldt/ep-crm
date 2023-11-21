@@ -1,28 +1,102 @@
 {% extends "dashboards/staff_portal.html" %}
+{% load client_tags %}
 {% block html_title %}
     {{ html_title }}
 {% endblock html_title %}
 {% block content %}
     <div class="container">
         <h5 class="text-center fw-bold mt-4 mb-4 text-success">Your Dashboard</h5>
-        <div class="row">
+        <hr>
+        <div class="row mt-4">
             <div class="col-md-6">
                 <p>You are logged in as {{ user.email }}</p>
                 <p>Your last login was {{ user.last_login }}</p>
+                <p>
+                    You are managing <strong>{% total_clients user %}</strong> clients and <strong>{% total_contracts user %}</strong> contracts
+                </p>
+                <p>Seamless Contracts: {% total_seamless_contracts user %}</p>
+                <p>Non Seamless Contracts: {% total_non_seamless_contracts user %}</p>
+            </div>
+            <div class="col-md-6">
+                <h6 class="text-center fw-bold">Search All Contracts</h6>
+                <form class="d-flex" action="{% url 'users:search_results' %}" method="get">
+                    <input name="q"
+                           class="form-control me-2"
+                           type="search"
+                           placeholder="Search by mpan/mpr or meter serial number or client, business, address"
+                           aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
             </div>
         </div>
-        <div class="col-md-6">
-            <h6 class="text-center fw-bold">Search All Contracts</h6>
-            <form class="d-flex" action="{% url 'users:search_results' %}" method="get">
-                <input name="q"
-                       class="form-control me-2"
-                       type="search"
-                       placeholder="Search by mpan/mpr or meter serial number or client, business, address"
-                       aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+        <div class="row justify-content-center">
+            <h5 class="text-center fw-bold text-success">Contract Statistics</h5>
+            <hr>
+            {% with user as u %}
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-success text-center">
+                                <i class="fa-solid fa-hard-drive"></i>&nbsp;Contract Status
+                            </h5>
+                            <ul>
+                                <li>Live Contracts: {% live_contracts u %}</li>
+                                <li>Under Objection: {% under_objection u %}</li>
+                                <li>Pricing: {% pricing u %}</li>
+                                <li>Locked: {% locked u %}</li>
+                                <li>Directors Approval: {% directors_approval u %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-success text-center">
+                                <i class="fa-solid fa-file-contract"></i>&nbsp;Contracts Per Utility
+                            </h5>
+                            <ul>
+                                <li>Gas Contracts: {% utility_gas_contracts u %}</li>
+                                <li>Electricity Contracts: {% utility_electricity_contracts u %}</li>
+                                <li>Electricity HH Contracts: {% electricity_hh_contracts u %}</li>
+                                <li>Electricity NHH Contracts: {% electricity_nhh_contracts u %}</li>
+                                <li>Electricity ums Contracts: {% electricity_ums_contracts u %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-success text-center">
+                                <i class="fa-solid fa-address-book"></i>&nbsp;Main Suppliers
+                            </h5>
+                            <ul>
+                                <li>Corona Contracts: {% corona_supplier_contracts u %}</li>
+                                <li>Crown Contracts: {% crown_supplier_contracts u %}</li>
+                                <li>SSE Contracts: {% sse_supplier_contracts u %}</li>
+                                <li>Pozitive Contracts: {% pozitive_supplier_contracts u %}</li>
+                                <li>E.ON Contracts: {% eon_supplier_contracts u %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-success text-center">
+                                <i class="fa-regular fa-calendar"></i>&nbsp;Expiry Dates
+                            </h5>
+                            <ul>
+                                <li>Expiring in 30 days: {% contracts_expiring_30_days u %}</li>
+                                <li>Expiring in 60 days: {% contracts_expiring_60_days u %}</li>
+                                <li>Expiring over 90 days: {% contracts_expiring_over_60_days u %}</li>
+                                <li>Out of Contract: {% out_of_contract u %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endwith %}
         </div>
     </div>
 {% endblock content %}
-{% block extra_js %}
-{% endblock extra_js %}
