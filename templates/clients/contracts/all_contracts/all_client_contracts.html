@@ -33,8 +33,8 @@
                                 {% elif contract.contract_type == "SEAMLESS" %}
                                     <td>{% trans "S" %}</td>
                                 {% endif %}
-                                <td>{{ contract.business_name | title | truncatechars:20 }}</td>
-                                <td>{{ contract.site_address | truncatechars:20 }}</td>
+                                <td>{{ contract.business_name | title }}</td>
+                                <td>{{ contract.site_address }}</td>
                                 <td>{{ contract.mpan_mpr }}</td>
                                 <td>{{ contract.supplier }}</td>
                                 <td>{{ contract.utility }}</td>

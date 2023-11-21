@@ -52,3 +52,11 @@ footer a.hover { color: #8ebf42;}
 .card {
   border: none;
 }
+
+.search-results-box {
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #aaaaaa;
+        }

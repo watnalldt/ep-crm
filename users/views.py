@@ -73,6 +73,15 @@ class AccountManagerClientList(LoginRequiredMixin, HTMLTitleMixin, ListView):
         return Client.objects.filter(account_manager=self.request.user)
 
 
+def search_contracts(query):
+    return Contract.objects.filter(
+        Q(mpan_mpr__iexact=query)
+        | Q(client__client__icontains=query)
+        | Q(business_name__icontains=query)
+        | Q(site_address__contains=query)
+    )
+
+
 @method_decorator([never_cache, account_manager_required], name="dispatch")
 class ContractSearchView(LoginRequiredMixin, ListView):
     model = Contract
@@ -82,15 +91,6 @@ class ContractSearchView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         query = self.request.GET.get("q")
         if query:
-            return self.search_contracts(query)
+            return search_contracts(query).distinct()
         else:
             return Contract.objects.all()
-
-    def search_contracts(self, query):
-        return Contract.objects.filter(
-            Q(mpan_mpr__isnull=True)
-            | Q(mpan_mpr__icontains=query)
-            | Q(client__client__icontains=query)
-            | Q(business_name__icontains=query)
-            | Q(site_address__icontains=query)
-        )

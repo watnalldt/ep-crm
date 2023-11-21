@@ -1,25 +1,23 @@
 {% extends "dashboards/staff_portal_base.html" %}
 {% block content %}
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto centered-panel">
-                <div class="card">
-                    <h5 class="card-title text-center text-success mt-4">Search Results</h5>
-                    <hr>
-                    <div class="card-body">
-                        {% for contract in results %}
-                            <ul>
-                                <li>
-                                    Client: <a href="{% url 'clients:all_clients_contract_detail' contract.id %}">{{ contract.client }}</a>
-                                </li>
-                                <li>MPAN/MPR: {{ contract.mpan_mpr }}</li>
-                                <li>Business Name: {{ contract.business_name }}</li>
-                                <li>Contract End Date: {{ contract.contract_end_date }}</li>
-                            </ul>
+        {% for contract in results %}
+            <div class="row mb-4">
+                <div class="col-md-5">
+                    <div class="search-results-box">
+                        <h6 class="text-center">Search Results</h6>
+                        <hr>
+                        <div class="result-item">
+                            <p>
+                                Client:&nbsp;<a href="{% url 'clients:all_clients_contract_detail' contract.id %}">{{ contract.client }}</a>
+                            </p>
+                            <p>Mpan/Mpr:&nbsp;{{ contract.mpan_mpr }}</p>
+                            <p>Business Name:&nbsp;{{ contract.business_name }}</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
+    <br>
 {% endblock content %}
