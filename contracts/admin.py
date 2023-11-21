@@ -23,11 +23,11 @@ class ContractResource(resources.ModelResource):
         widget=ForeignKeyWidget(Client, "client"),
     )
 
-    # client_manager = fields.Field(
-    #     column_name="client_manager",
-    #     attribute="client_manager",
-    #     widget=ForeignKeyWidget(User, "email"),
-    # )
+    client_manager = fields.Field(
+        column_name="client_manager",
+        attribute="client_manager",
+        widget=ForeignKeyWidget(User, "email"),
+    )
 
     supplier = fields.Field(
         column_name="supplier",
@@ -58,7 +58,7 @@ class ContractResource(resources.ModelResource):
             "bid_id",
             "portal_status",
             "client",
-            # "client_manager",
+            "client_manager",
             "is_directors_approval",
             "business_name",
             "company_reg_number",
@@ -119,9 +119,9 @@ class ClientFilter(AutocompleteFilter):
     field_name = "client"  # name of the foreign key field
 
 
-# class ClientManagerFilter(AutocompleteFilter):
-#     title = "Client Manager"  # display title
-#     field_name = "client_manager"  # name of the foreign key field
+class ClientManagerFilter(AutocompleteFilter):
+    title = "Client Manager"  # display title
+    field_name = "client_manager"  # name of the foreign key field
 
 
 class SupplierFilter(AutocompleteFilter):
@@ -148,7 +148,7 @@ class ContractAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         "contract_status",
         "link_to_clients",
         "business_name",
-        # "client_manager",
+        "client_manager",
         "site_address",
         "supplier",
         "utility",
@@ -168,7 +168,7 @@ class ContractAdmin(ImportExportModelAdmin, admin.ModelAdmin):
             {
                 "description": "Enter the site details",
                 "fields": (
-                    ("client", "business_name"),
+                    ("client", "client_manager", "business_name"),
                     "site_address",
                     "supplier",
                     "utility",
@@ -254,8 +254,6 @@ class ContractAdmin(ImportExportModelAdmin, admin.ModelAdmin):
             "Commissions",
             {
                 "description": "Enter the following",
-                # Enable a Collapsible Section
-                "classes": ("collapse",),
                 "fields": (
                     "commission_per_annum",
                     "commission_per_unit",
@@ -284,7 +282,7 @@ class ContractAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         "contract_type",
         "contract_status",
         ClientFilter,
-        # ClientManagerFilter,
+        ClientManagerFilter,
         SupplierFilter,
         UtilityTypeFilter,
         "seamless_status",

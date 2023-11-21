@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
 
 from clients.models import Client
+from users.models import ClientManager
 from utilities.models import Supplier, Utility
 
 
@@ -98,7 +99,14 @@ class Contract(models.Model):
         Client,
         on_delete=models.CASCADE,
         verbose_name="Client Name",
-        related_name="client_contracts",
+    )
+    client_manager = models.ForeignKey(
+        ClientManager,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name="Client Manager",
+        related_name="client_manager_contracts",
     )
     is_directors_approval = models.CharField(
         verbose_name="Directors Approval",

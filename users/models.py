@@ -93,3 +93,25 @@ class AccountManager(User):
 
     def __str__(self):
         return self.email
+
+
+class CLManager(models.Manager):
+    # Ensures queries on the Client Manager model return only Client Managers
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(role=User.Roles.CLIENT_MANAGER)
+
+
+class ClientManager(User):
+    # This sets the user role to Client Manager during record creation
+
+    role = User.Roles.CLIENT_MANAGER
+    objects = CLManager()
+
+    # Setting proxy to "True" means a table WILL NOT be created # for this record
+    class Meta:
+        proxy = True
+        verbose_name = "Client Manager"
+        verbose_name_plural = "Client Managers"
+
+    def __str__(self):
+        return self.email
