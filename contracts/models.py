@@ -99,6 +99,7 @@ class Contract(models.Model):
         Client,
         on_delete=models.CASCADE,
         verbose_name="Client Name",
+        related_name="client_contracts",
     )
     client_manager = models.ForeignKey(
         ClientManager,
