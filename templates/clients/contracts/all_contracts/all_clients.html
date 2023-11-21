@@ -16,8 +16,8 @@
                             <tr>
                                 <td>{{ client.client }}</td>
                                 <td>
-                                    <a href="{% url 'clients:all_client_contracts' client.pk %}"
-                                       class="btn btn-success text-center"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="{% url 'clients:all_client_contracts' client.pk %}">
+                                        <i class="fa-solid fa-file" style="font-size: 40px; color:green;"></i></a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -31,8 +31,14 @@
 {% block extra_js %}
     <script>
     $(document).ready(function () {
-      $('#am_list').DataTable();
+      $('#am_list').DataTable({
+         columnDefs: [{ width: 10, targets: 1, }],
+        }
+
+      )
+
     });
+
 
     </script>
 {% endblock extra_js %}

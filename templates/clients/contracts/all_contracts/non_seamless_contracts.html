@@ -43,22 +43,18 @@
             </div>
             <div class="col mt-3">
                 <p>
-                   {% if contract.contract_type == "NON_SEAMLESS" %}
-                    <p>
+                    {% if contract.contract_type == "NON_SEAMLESS" %}
                         <b>Contract Type: {% trans "Non Seamless" %}</b>
-
-                </p>
-            {% endif %}
+                    </p>
+                {% endif %}
                 {% if contract.days_till <= '1' %}
                     <p>
                         <b>{% trans "Contract has expired" %}</b>
                     </p>
                 {% endif %}
-                    <p>
-                        <b>Contract Status: {{ contract.contract_status | lower }}</b>
-                    </p>
-
-
+                <p>
+                    <b>Contract Status: {{ contract.contract_status | lower }}</b>
+                </p>
                 {% if contract.smart_meter == None %}
                     <p>{% trans "No Smart Meter" %}</p>
                 {% else %}
@@ -68,7 +64,7 @@
                 <p>MPAN/MPR: {{ contract.mpan_mpr }}</p>
                 <p>Top Line: {{ contract.top_line }}</p>
                 <p>EAC: {{ contract.eac }}</p>
-               <p>KVA: {{ contract.kva }}</p>
+                <p>KVA: {{ contract.kva }}</p>
                 <p>Day Consumption: {{ contract.day_consumption }}</p>
                 <p>Night Consumption: {{ contract.night_consumption }}</p>
             </div>
@@ -92,7 +88,7 @@
             <p>Unit Rate 1: {{ contract.future_unit_rate_1 }}</p>
             <p>Unit Rate 2: {{ contract.future_unit_rate_2 }}</p>
             <p>Unit Rate 3: {{ contract.future_unit_rate_3 }}</p>
-          <p>Standing Charge: {{ contract.future_standing_charge }}</p>
+            <p>Standing Charge: {{ contract.future_standing_charge }}</p>
         </div>
     </div>
     <div class="row mb-4 text-center">

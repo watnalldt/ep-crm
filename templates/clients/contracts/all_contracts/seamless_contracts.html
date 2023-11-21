@@ -22,7 +22,6 @@
                 <p>Dwellant ID: {{ contract.dwellent_id }}</p>
                 <p>Bid ID: {{ contract.bid_id }}</p>
                 <p>Building Name: {{ contract.building_name }}</p>
-
                 {% if contract.account_number == None %}
                     <p>{% trans "" %}</p>
                 {% else %}
@@ -30,7 +29,6 @@
                 {% endif %}
                 <p>Company Reg Number: {{ contract.company_reg_number }}</p>
                 <p>Suppler: {{ contract.supplier }}</p>
-
                 <p>Utility Type: {{ contract.utility }}</p>
                 {% if contract.vat == None %}
                     <p>{% trans "Vat Rate: 0" %}</p>
@@ -58,8 +56,6 @@
                         <b>Contract Status: {{ contract.contract_status | lower }}</b>
                     </p>
                 {% endif %}
-
-
                 {% if contract.smart_meter == None %}
                     <p>{% trans "No Smart Meter" %}</p>
                 {% else %}
@@ -69,7 +65,7 @@
                 <p>MPAN/MPR: {{ contract.mpan_mpr }}</p>
                 <p>Top Line: {{ contract.top_line }}</p>
                 <p>EAC: {{ contract.eac | floatformat:2 }}</p>
-             <p>KVA: {{ contract.kva }}</p>
+                <p>KVA: {{ contract.kva }}</p>
                 <p>Day Consumption: {{ contract.day_consumption | floatformat:2 }}</p>
                 <p>Night Consumption: {{ contract.night_consumption | floatformat:2 }}</p>
             </div>
@@ -83,7 +79,7 @@
                 <p>Pence per Kilowatt: {{ contract.pence_per_kilowatt }}</p>
                 <p>Day Kilowatt Hour Rate: {{ contract.day_kilowatt_hour_rate }}</p>
                 <p>Night Rate: {{ contract.night_rate }}</p>
-              <p>Supplier: {{ contract.supplier }}</p>
+                <p>Supplier: {{ contract.supplier }}</p>
             </div>
         </div>
         <hr>
@@ -94,7 +90,7 @@
             <p>Unit Rate 1: {{ contract.future_unit_rate_1 }}</p>
             <p>Unit Rate 2: {{ contract.future_unit_rate_2 }}</p>
             <p>Unit Rate 3: {{ contract.future_unit_rate_3 }}</p>
-          <p>Standing Charge: {{ contract.future_standing_charge }}</p>
+            <p>Standing Charge: {{ contract.future_standing_charge }}</p>
         </div>
         <div class="row mb-4 text-center">
             <a href="" target="_blank">
