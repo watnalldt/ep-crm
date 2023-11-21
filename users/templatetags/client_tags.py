@@ -1,9 +1,10 @@
-from django import template
 from datetime import timedelta
-from clients.models import Client
-from contracts.models import Contract
+
+from django import template
 from django.utils import timezone
 
+from clients.models import Client
+from contracts.models import Contract
 
 register = template.Library()
 
@@ -62,9 +63,7 @@ def total_contracts_directors_approval(user):
 @register.simple_tag
 def utility_gas_contracts(user):
     gas_contracts = (
-        Contract.objects.filter(client__account_manager=user)
-        .filter(utility__utility="Gas")
-        .count()
+        Contract.objects.filter(client__account_manager=user).filter(utility__utility="Gas").count()
     )
     return gas_contracts
 
@@ -192,7 +191,9 @@ def contracts_expiring_over_60_days(user):
 
 @register.simple_tag
 def live_contracts(user):
-    contracts = Contract.objects.filter(client__account_manager=user).filter(contract_status="LIVE").count()
+    contracts = (
+        Contract.objects.filter(client__account_manager=user).filter(contract_status="LIVE").count()
+    )
     return contracts
 
 
@@ -204,23 +205,39 @@ def out_of_contract(user):
 
 @register.simple_tag
 def under_objection(user):
-    objection = Contract.objects.filter(client__account_manager=user).filter(contract_status="OBJECTION").count()
+    objection = (
+        Contract.objects.filter(client__account_manager=user)
+        .filter(contract_status="OBJECTION")
+        .count()
+    )
     return objection
 
 
 @register.simple_tag
 def pricing(user):
-    pricing_contract = Contract.objects.filter(client__account_manager=user).filter(contract_status="PRICING").count()
+    pricing_contract = (
+        Contract.objects.filter(client__account_manager=user)
+        .filter(contract_status="PRICING")
+        .count()
+    )
     return pricing_contract
 
 
 @register.simple_tag
 def locked(user):
-    locked_contract = Contract.objects.filter(client__account_manager=user).filter(contract_status="LOCKED").count()
+    locked_contract = (
+        Contract.objects.filter(client__account_manager=user)
+        .filter(contract_status="LOCKED")
+        .count()
+    )
     return locked_contract
 
 
 @register.simple_tag
 def directors_approval(user):
-    approval_required = Contract.objects.filter(client__account_manager=user).filter(is_directors_approval="YES").count()
+    approval_required = (
+        Contract.objects.filter(client__account_manager=user)
+        .filter(is_directors_approval="YES")
+        .count()
+    )
     return approval_required

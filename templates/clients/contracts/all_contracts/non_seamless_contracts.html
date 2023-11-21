@@ -1,5 +1,5 @@
 <!-- templates/contracts/non_seamless_contracts.html -->
-{% extends "dashboards/staff_portal.html" %}
+{% extends "dashboards/staff_portal_base.html" %}
 {% load static i18n %}
 {% block html_title %}
     {{ html_title }}
@@ -44,7 +44,7 @@
             <div class="col mt-3">
                 <p>
                     {% if contract.contract_type == "NON_SEAMLESS" %}
-                        <b>Contract Type: {% trans "Non Seamless" %}</b>
+                        <b>Contract Type: {% trans "NS" %}</b>
                     </p>
                 {% endif %}
                 {% if contract.days_till <= '1' %}
