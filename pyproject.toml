@@ -8,7 +8,7 @@ multi_line_output = 3
 line_length = 100
 default_section = "THIRDPARTY"
 known_first_party = []
-known_third_party = ["admin_auto_filters", "django", "environ", "import_export", "model_bakery", "pytest", "rangefilter", "reversion", "simple_history", "watson"]
+known_third_party = ["admin_auto_filters", "django", "environ", "import_export", "model_bakery", "pytest", "rangefilter", "reversion", "simple_history"]
 
 [tool.djlint]
 profile="django"

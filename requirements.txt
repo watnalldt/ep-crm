@@ -103,9 +103,7 @@ sqlparse==0.4.4
     #   django
     #   django-debug-toolbar
 tablib[html,ods,xls,xlsx,yaml]==3.5.0
-    # via
-    #   django-import-export
-    #   tablib
+    # via django-import-export
 termcolor==2.3.0
     # via pytest-sugar
 typing-extensions==4.8.0
