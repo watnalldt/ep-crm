@@ -12,12 +12,12 @@
                 <div class="card shadow">
                     <div class="card-title text-center">
                         <a class="btn btn-secondary mt-4" style="cursor: default;">
-                            <i class="fas fa-lock"></i>&nbsp;&nbsp;EP CONTRACT MANAGEMENT LOGIN
+                            <i class="fas fa-lock"></i>&nbsp;&nbsp;EP CONTRACT MANAGEMENT REGISTRATION
                         </a>
                     </div>
                     <div class="card-body mt-4  align-center" id="card-login">
                         <form method="post"
-                              action="{% url 'users:login' %}"
+                              action="{% url 'users:client_manager_registration' %}"
                               autocomplete="off"
                               novalidate>
                             {% csrf_token %}
@@ -25,10 +25,11 @@
                             <div class="text-center">
                                 <input class="btn btn-success btn-sm mt-3"
                                        type="submit"
-                                       value="Enter"
+                                       value="Register"
                                        id="btn-enter">
-                                <a href="{% url 'users:forgot_password' %}"
-                                   class="btn btn-danger btn-sm id=btn-password mt-3">Password Reset</a>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"></div>
                             </div>
                         </form>
                     </div>

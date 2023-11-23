@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Account Verification</title>
+    </head>
+    <body>
+        <h2 style="text-align: center;">Activate Your Account</h2>
+        <p style="text-align: center;">Please verify your email address to activate your account and log in.</p>
+        <div style="text-align: center;">
+            <a href="https://{{ domain }}{% url 'users:activate' uidb64=uid token=token %}">Activate Now</a>
+        </div>
+    </body>
+</html>
