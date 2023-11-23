@@ -23,5 +23,6 @@ urlpatterns = [
     path("users/", include("users.urls")),
     path("", include("pages.urls")),
     path("clients/", include("clients.urls")),
+    path("contracts/", include("contracts.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
