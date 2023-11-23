@@ -22,6 +22,9 @@ urlpatterns = [
         views.reset_password_validate,
         name="reset_password_validate",
     ),
+    # client manager registration
+    path("register-user/", views.client_manager_registration, name="client_manager_registration"),
+    path("activate/<uidb64>/<token>/", views.activate, name="activate"),
     # Client List
     path(
         "account_managers_client_list",
@@ -29,4 +32,9 @@ urlpatterns = [
         name="client_list",
     ),
     path("search_results", views.ContractSearchView.as_view(), name="search_results"),
+    path(
+        "client_managers_dashboard/",
+        views.ClientManagerDashBoard.as_view(),
+        name="client_managers_dashboard",
+    ),
 ]

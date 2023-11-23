@@ -13,9 +13,10 @@ from django.views.generic import ListView, TemplateView
 
 from clients.models import Client
 from contracts.models import Contract
-from core.decorators import account_manager_required
+from core.decorators import account_manager_required, client_manager_required
 from core.views import HTMLTitleMixin
 
+from .forms import RegistrationForm
 from .utils import detect_user, send_verification_email
 
 User = get_user_model()
@@ -57,7 +58,42 @@ def my_account(request):
     return redirect(redirect_url)
 
 
+# Client Registration
+
+
+def client_manager_registration(request):
+    if request.method == "POST":
+        # store the data and create the user
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            first_name = form.cleaned_data.get("first_name")
+            last_name = form.cleaned_data.get("last_name")
+            email = form.cleaned_data.get("email")
+            password = form.cleaned_data.get("password")
+            user = User.objects.create_user(
+                first_name=first_name, last_name=last_name, email=email, password=password
+            )
+            user.role = User.Roles.CLIENT_MANAGER
+            user.is_active = False  # Disable account until email confirmation
+            user.save()
+
+            mail_subject = "Please activate your account"
+            email_template = "users/registration/emails/account_verification_email.html"
+            send_verification_email(request, user, mail_subject, email_template)
+            messages.success(request, "Please check your emails to activate your account")
+            return redirect("users:client_manager_registration")
+
+    else:
+        form = RegistrationForm()
+    context = {
+        "form": form,
+    }
+    return render(request, "users/registration/register_client_manager.html", context)
+
+
 # Account activation for client managers
+
+
 def activate(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
@@ -173,3 +209,17 @@ class ContractSearchView(LoginRequiredMixin, ListView):
             return search_contracts(query).distinct()
         else:
             return Contract.objects.all()
+
+
+@method_decorator([never_cache, client_manager_required], name="dispatch")
+class ClientManagerDashBoard(LoginRequiredMixin, HTMLTitleMixin, ListView):
+    """Returns the Client Manager's Dashboard on login.
+    Lists out all the client's contracts with a link to the detail"""
+
+    model = Contract
+    template_name = "client_managers/client_managers_dashboard.html"
+    html_title = "Contracts List"
+    login_url = "/users/login/"
+
+    def get_queryset(self):
+        return Contract.objects.filter(client_manager=self.request.user)
