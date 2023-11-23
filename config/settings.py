@@ -177,3 +177,27 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MAX_UPLOAD_SIZE = "5242880"
 DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 GRAPPELLI_ADMIN_TITLE = "Energy Portfolio CRM Portal"
+# Email Settings
+EMAIL_BACKEND = env("EMAIL_BACKEND")
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env("EMAIL_PORT")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = False
+# EMAIL_HOST = env("EMAIL_HOST")
+# EMAIL_BACKEND = env("EMAIL_BACKEND")
+# EMAIL_PORT = env("EMAIL_PORT")
+# EMAIL_USE_TLS = env("EMAIL_USE_TLS")
+# MAILJET_API_KEY = env("MAILJET_API_KEY")
+# MAILJET_API_SECRET = env("MAILJET_API_SECRET")
+
+ADMINS = [x.split(":") for x in env.list("DJANGO_ADMINS")]
+# ADMINS = [("John", "john@example.com"), ("Mary", "mary@example.com")]
+MANAGERS = ADMINS
+DEFAULT_FROM_EMAIL = env(
+    "DJANGO_DEFAULT_FROM_EMAIL",
+    default="Support <david@energyportfolio.co.uk>",
+)
+
+# # https://docs.djangoproject.com/en/dev/ref/settings/#server-email
+SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
