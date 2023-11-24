@@ -12,8 +12,7 @@
                           method="post"
                           enctype="multipart/form-data">
                         {% csrf_token %}
-                         {{ form | crispy }}
-
+                        {{ form | crispy }}
                         <br>
                         <div class="d-flex align-items-center justify-content-center">
                             <input type="submit" class="btn btn-secondary btn-sm mt-3" value="Submit">
@@ -26,25 +25,4 @@
     <br>
 {% endblock content %}
 {% block extra_js %}
-  <script>
-   $(document).ready(function () {
-        // Initially hide the fields for multiple meters
-        $("#id_meter_reading_2, #id_meter_reading_3").hide();
-
-        // Show or hide fields based on the selected meter type
-        $("#meter_reading").change(function () {
-          var selectedValue = $(this).val();
-
-          if (selectedValue === "SINGLE_METER") {
-            $("#id_meter_reading").show();
-            $("#id_meter_reading_2, #id_meter_reading_3").hide();
-          } else if (selectedValue === "MULTIPLE_METERS") {
-            $("#id_single_meter").hide();
-            $("#id_meter_reading_2, #id_meter_reading_3").show();
-          }
-        });
-      });
-  </script>
-
 {% endblock extra_js %}
-
