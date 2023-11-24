@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Meter Reading Submission</title>
+        <style>
+      .list-unstyled {
+	list-style: none;
+}
+        </style>
+    </head>
+    <body>
+        <ul class="list-unstyled">
+            <li>Client Name: {{ client_name }}</li>
+            <li>Site Address: {{ site_address }}</li>
+          <li>Supplier: {{ supplier }}</li>
+            <li>MPAN/MPR: {{ mpan_mpr }}</li>
+            <li>Meter Serial No: {{ meter_serial_number }}</li>
+            <li>Utility: {{ utility_type }}</li>
+            <li>Meter Reading: {{ meter_reading }}</li>
+            <li>Date of Meter Reading: {{ meter_reading_date }}</li>
+        </ul>
+    </body>
+</html>
