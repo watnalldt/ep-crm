@@ -1,4 +1,3 @@
-import reversion
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
@@ -18,8 +17,6 @@ class Utility(TimeStampedModel):
         return self.utility
 
 
-@reversion.register
-# Add this decorator to enable version control for the model
 class Supplier(TimeStampedModel):
     supplier = models.CharField(max_length=100, unique=True)
     meter_email = models.EmailField(null=True, blank=True)

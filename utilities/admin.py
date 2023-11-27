@@ -1,7 +1,6 @@
 from django.contrib import admin
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
-from reversion.admin import VersionAdmin
 
 from .models import Supplier, Utility
 
@@ -15,7 +14,7 @@ class SupplierResource(resources.ModelResource):
         import_id_fields = ["supplier"]
 
 
-class SupplierAdmin(ImportExportModelAdmin, VersionAdmin):
+class SupplierAdmin(ImportExportModelAdmin):
     resource_class = SupplierResource
     list_display = (
         "supplier",

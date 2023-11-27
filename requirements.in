@@ -6,10 +6,10 @@ django-debug-toolbar
 # Management
 django-grappelli
 django-import-export
-django-reversion
 django-simple-history
 django-admin-rangefilter
 django-admin-autocomplete-filter
+django-slick-reporting
 
 # Database
 psycopg[binary]
