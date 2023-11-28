@@ -1,4 +1,3 @@
-import reversion
 from django.db import models
 from django.urls import reverse
 from simple_history.models import HistoricalRecords
@@ -18,7 +17,6 @@ class ClientsManager(models.Manager):
         )
 
 
-@reversion.register
 class Client(TimeStampedModel):
     client = models.CharField(verbose_name="Client", max_length=255, unique=True)
     account_manager = models.ForeignKey(

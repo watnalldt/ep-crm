@@ -55,7 +55,7 @@ THIRD_PARTY_APPS = [
     "django_extensions",
     "import_export",
     "rangefilter",
-    "reversion",
+    "slick_reporting",
     "simple_history",
 ]
 

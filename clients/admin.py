@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from import_export import fields, resources
 from import_export.admin import ImportExportModelAdmin
 from import_export.widgets import ForeignKeyWidget
-from reversion.admin import VersionAdmin
 
 from .models import Client
 
@@ -34,7 +33,7 @@ class ClientResource(resources.ModelResource):
         ]
 
 
-class ClientAdmin(ImportExportModelAdmin, VersionAdmin):
+class ClientAdmin(ImportExportModelAdmin):
     show_full_result_count = False
     resource_class = ClientResource
     list_display = (

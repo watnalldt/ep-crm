@@ -49,13 +49,14 @@
         </div>
     </div>
     <div class="container text-center mb-4">
-        <a href="" target="_blank">
-            <button class="btn btn-secondary btn-sm mt-3">Download PDF</button>
-        </a>
         {% if contract.meter_serial_number is None or contract.meter_serial_number is 'UMS' %}
+            <p>Nothing</p>
         {% else %}
             <a href="{% url 'clients:meter_reading' contract.id %}">
-                <button class="btn btn-secondary btn-sm mt-3">Submit Meter Reading</button>
+                <button class="btn btn-secondary btn-sm mt-3">Single Meter Reading</button>
+            </a>
+            <a href="{% url 'clients:multiple_meter_reading' contract.pk %}">
+                <button class="btn btn-secondary btn-sm mt-3">Multiple Meter Reads</button>
             </a>
         {% endif %}
     </div>
