@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 import environ
@@ -55,8 +56,10 @@ THIRD_PARTY_APPS = [
     "django_extensions",
     "import_export",
     "rangefilter",
-    "slick_reporting",
     "simple_history",
+    "axes",
+    "django_admin_logs",
+    "django_browser_reload",
 ]
 
 
@@ -210,3 +213,14 @@ MESSAGE_TAGS = {
     messages.WARNING: "alert-warning",
     messages.ERROR: "alert-danger",
 }
+
+AXES_FAILURE_LIMIT = 3  # How many times a user can fail to log in
+AXES_COOLOFF_TIME = timedelta(minutes=10)  # How long before a user can fail to log in
+AXES_RESET_ON_SUCCESS = True  # Reset failed login attempts after successful login
+AXES_LOCKOUT_TEMPLATE = "account_locked.html"
+AXES_RESET_COOL_OFF_ON_FAILURE_DURING_LOCKOUT = False
+AXES_LOCKOUT_PARAMETERS = [
+    [
+        "username",
+    ]
+]

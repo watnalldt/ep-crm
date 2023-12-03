@@ -9,8 +9,12 @@ django-import-export
 django-simple-history
 django-admin-rangefilter
 django-admin-autocomplete-filter
-django-slick-reporting
-
+django-auto-logout
+django-admin-logs
+dj_user_login_history
+django-user-visit
+django-axes
+django-browser-reload
 # Database
 psycopg[binary]
 
@@ -30,6 +34,3 @@ coverage
 factory_boy
 model-bakery
 mixer
-
-#  search
-django-watson
