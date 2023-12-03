@@ -81,6 +81,12 @@ class Contract(models.Model):
         YES = "YES", _("Yes")
         NO = "NO", _("No")
 
+    class MeterDeactivated(models.TextChoices):
+        """The default is set to No"""
+
+        YES = "YES", _("Yes")
+        NO = "NO", _("No")
+
     contract_type = models.CharField(
         max_length=20, choices=ContractType.choices, default=ContractType.SEAMLESS
     )
@@ -125,7 +131,7 @@ class Contract(models.Model):
         related_name="contract_utilities",
     )
     top_line = models.CharField(verbose_name="Top Line", max_length=40, null=True, blank=True)
-    mpan_mpr = models.CharField(verbose_name="MPAN/MPR", max_length=255)
+    mpan_mpr = models.CharField(max_length=150, verbose_name="MPAN/MPR")
     meter_serial_number = models.CharField(
         max_length=100,
         null=True,
@@ -134,6 +140,10 @@ class Contract(models.Model):
             "<a href='https://www.ecoes.co.uk' target='_blank'>" "Look up Meter Serial Number</a>"
         ),
     )
+    # meter_deactivated = models.CharField(
+    #     verbose_name="Meter Deactivated",
+    #     choices=MeterDeactivated.choices,
+    # )
     building_name = models.CharField(
         verbose_name="Building Name", max_length=255, null=True, blank=True
     )
@@ -365,7 +375,7 @@ class Contract(models.Model):
 
         super().save(*args, **kwargs)
 
-    # Returns the number of days left on the contrac
+    # Returns the number of days left on the contract
     @property
     def days_till(self):
         today = date.today()

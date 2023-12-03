@@ -308,7 +308,6 @@ class ContractAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         "mpan_mpr",
         "meter_serial_number",
         "site_address",
-        "status",
     )
     date_hierarchy = "contract_end_date"
 
@@ -360,6 +359,10 @@ class ContractAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     @admin.action(description="Make Non-Seamless")
     def change_contract_to_non_seamless(self, request, queryset):
         queryset.update(contract_type="NON_SEAMLESS")
+
+    @admin.action(description="Deactivate Meter")
+    def deactivate_meter(self, request, queryset):
+        queryset.update(meter_deactivated=True)
 
     @admin.action(description="Vat Declaration Sent")
     def make_vat_declaration(self, request, queryset):
