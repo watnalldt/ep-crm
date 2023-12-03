@@ -224,3 +224,12 @@ AXES_LOCKOUT_PARAMETERS = [
         "username",
     ]
 ]
+
+DJANGO_ADMIN_LOGS_DELETABLE = True
+
+# Auto Logout
+AUTO_LOGOUT = {
+    "IDLE_TIME": timedelta(minutes=60),
+    "MESSAGE": "The session has expired. Please login again to  continue.",
+    "REDIRECT_TO_LOGIN_IMMEDIATELY": True,
+}
