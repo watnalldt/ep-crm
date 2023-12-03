@@ -24,5 +24,6 @@ urlpatterns = [
     path("", include("pages.urls")),
     path("clients/", include("clients.urls")),
     path("contracts/", include("contracts.urls")),
+    path("__reload__/", include("django_browser_reload.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
 ]

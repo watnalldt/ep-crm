@@ -60,6 +60,7 @@ THIRD_PARTY_APPS = [
     "axes",
     "django_admin_logs",
     "django_browser_reload",
+    "user_visit",
 ]
 
 
@@ -84,6 +85,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware",  # BrowserReload
+    "user_visit.middleware.UserVisitMiddleware",  # User visits
+    "simple_history.middleware.HistoryRequestMiddleware",  # History
+    "axes.middleware.AxesMiddleware",  # Axes
+    "django_auto_logout.middleware.auto_logout",  # Auto-logout
 ]
 # Enable the debug toolbar only in DEBUG mode.
 if DEBUG and DEBUG_TOOLBAR:
@@ -139,6 +145,13 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    # AxesStandaloneBackend should be the first backend in the AUTHENTICATION_BACKENDS list.
+    "axes.backends.AxesStandaloneBackend",
+    # Django ModelBackend is the default authentication backend.
+    "django.contrib.auth.backends.ModelBackend",
 ]
 
 
