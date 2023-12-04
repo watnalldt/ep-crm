@@ -60,3 +60,9 @@ footer a.hover { color: #8ebf42;}
   margin-top: 20px;
   background-color: #aaaaaa;
         }
+
+
+.submit-btn {
+        display: inline-block;
+        margin-right: 10px; /* Adjust as needed */
+    }

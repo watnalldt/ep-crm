@@ -48,20 +48,22 @@
             </div>
         </div>
     </div>
-    <div class="container text-center mb-4">
-        {% if contract.meter_serial_number is None or contract.meter_serial_number is 'UMS' %}
-            <p>Nothing</p>
-        {% else %}
+    {% if contract.meter_serial_number is None or contract.meter_serial_number is 'UMS' %}
+    {% else %}
+        <div class="container d-flex align-items-center justify-content-center">
             <div class="row">
-                <div class="col-md-6">
+                <p class="text-center">
+                    <strong>For a single meter reading click Single Meter or for multiple meter readings click Multiple Meters</strong>
+                </p>
+                <div class="col-sm-12 text-center">
                     <a href="{% url 'clients:meter_reading' contract.id %}">
-                        <button class="btn btn-secondary btn-sm mt-3">Single Meter Reading</button>
+                        <button class="btn btn-secondary btn-md mt-3 mb-4">Single Meter</button>
                     </a>
                     <a href="{% url 'clients:multiple_meter_reading' contract.pk %}">
-                        <button class="btn btn-secondary btn-sm mt-3">Multiple Meter Reads</button>
+                        <button class="btn btn-secondary btn-md mt-3 mb-4">Multiple Meters</button>
                     </a>
                 </div>
             </div>
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
 {% endblock content %}
