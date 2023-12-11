@@ -360,9 +360,9 @@ class ContractAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     def change_contract_to_non_seamless(self, request, queryset):
         queryset.update(contract_type="NON_SEAMLESS")
 
-    @admin.action(description="Deactivate Meter")
-    def deactivate_meter(self, request, queryset):
-        queryset.update(meter_deactivated=True)
+    # @admin.action(description="Deactivate Meter")
+    # def deactivate_meter(self, request, queryset):
+    #     queryset.update(meter_deactivated=True)
 
     @admin.action(description="Vat Declaration Sent")
     def make_vat_declaration(self, request, queryset):
